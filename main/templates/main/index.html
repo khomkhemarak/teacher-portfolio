@@ -1,52 +1,186 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Teacher Portfolio</title>
+    <title>{{ profile.name }} Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
+
 <body class="bg-gray-50 font-sans">
 
-    <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
-        <h1 class="text-xl font-bold text-blue-800">{{profile.name}} | Educator</h1>
-        <div class="space-x-4">
-            <a href="#" class="text-gray-600 hover:text-blue-600">About</a>
-            <a href="#" class="text-gray-600 hover:text-blue-600">Lessons</a>
-            <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded">Contact</a>
+    <nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-500 bg-white/10 backdrop-blur-md border-b border-white/20 py-4">
+        <div class="max-w-full mx-auto flex justify-between items-start px-8 md:px-12">
+            
+            <div class="flex flex-col space-y-2">
+                <div id="nav-logo" class="text-xl font-bold text-blue-800 transition-colors duration-500 whitespace-nowrap">
+                    {{ profile.name }} | No Fake
+                </div>
+
+                <div id="nav-sub-links" class="flex flex-row items-center space-x-2 pl-1">
+                    <a href="#education" class="text-[11px] font-bold uppercase tracking-wider text-gray-500 px-4 py-1.5 rounded-full transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg">
+                        Education
+                    </a>
+                    
+                    <a href="#work" class="text-[11px] font-bold uppercase tracking-wider text-gray-500 px-4 py-1.5 rounded-full transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg">
+                        Work
+                    </a>
+                </div>
+            </div>
+
+            <div id="nav-links" class="flex items-center space-x-6 text-gray-800 transition-colors duration-500 font-semibold pt-1">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+                <a href="#contact" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-lg">
+                    Contact
+                </a>
+            </div>
+            
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto mt-20 text-center">
-        <div class="mb-8 flex justify-center">
-            <div class="w-40 h-40 rounded-full border-4 border-white shadow-lg overflow-hidden ring-2 ring-blue-100">
-                {% if profile.profile_image %}
-                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="w-full h-full object-cover">
-                {% else %}
-                    <img src="https://via.placeholder.com/160" alt="Default" class="w-full h-full object-cover">
-                {% endif %}
+    <section id="about" class="min-h-screen flex flex-col justify-center items-center bg-white px-6 pt-20">
+        <div class="max-w-4xl text-center">
+            <div class="mb-8 flex justify-center">
+                <div class="w-44 h-44 rounded-full border-4 border-white shadow-xl overflow-hidden ring-4 ring-blue-50">
+                    {% if profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <img src="https://via.placeholder.com/160" alt="Default" class="w-full h-full object-cover">
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        <h2 class="text-5xl font-extrabold text-gray-900 mb-2">Hello, I'm {{ profile.name }}</h2>
-        <p class="text-blue-600 font-medium mb-6 uppercase tracking-widest">{{ profile.title }}</p>
-        
-        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            {{ profile.bio }}
-        </p>
+            <h2 class="text-6xl font-extrabold text-gray-900 mb-4">Hello, I'm {{ profile.name }}</h2>
+            <p class="text-blue-600 font-bold mb-8 uppercase tracking-[0.2em] text-sm">{{ profile.title }}</p>
+            
+            <p class="text-2xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto">
+                {{ profile.bio }}
+            </p>
 
-        <div class="flex justify-center gap-4">
-            <a href="#lessons" class="bg-slate-800 text-white px-6 py-3 rounded-lg hover:bg-slate-700">
-                View My Work
+            <a href="#skills" class="inline-block animate-bounce mt-10">
+                <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="正面 19l-7 7-7-7"></path>
+                    <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </a>
         </div>
-    </main>
+    </section>
 
-    <script>
-        document.getElementById('alertBtn').addEventListener('click', () => {
-            alert('Welcome to my portfolio! More lessons coming soon.');
-        });
-    </script>
+    <section id="education" class="min-h-screen flex items-center bg-slate-50 py-24 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="mb-16">
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Education <span class="text-blue-600">Background</span>
+                </h2>
+                <div class="h-1 w-20 bg-blue-600 mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                {% for edu in education %}
+                <div class="group relative bg-white border border-slate-200 p-8 rounded-3xl transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 reveal-card">
+                    
+                    <span class="absolute top-4 right-8 text-8xl font-black text-slate-50 group-hover:text-blue-50 transition-colors duration-500 select-none">0{{ forloop.counter }}</span>
+
+                    <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start">
+                        
+                        <div class="relative shrink-0">
+                            <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 p-0.5 rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-lg">
+                                <div class="w-full h-full rounded-xl bg-white flex items-center justify-center overflow-hidden">
+                                    {% if edu.image %}
+                                        <img src="{{ edu.image.url }}" alt="School Logo" class="w-full h-full object-contain p-2">
+                                    {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            {% if edu.profile_image %}
+                            <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full border-4 border-white shadow-md overflow-hidden transition-transform duration-500 group-hover:scale-110">
+                                <img src="{{ edu.profile_image.url }}" alt="Personal Photo" class="w-full h-full object-cover">
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex-1">
+                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg mb-4 uppercase tracking-widest">
+                                {{ edu.year }}
+                            </span>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                                {{ edu.degree }}
+                            </h3>
+                            <p class="text-lg text-slate-500 font-medium mb-4 italic">{{ edu.school }}</p>
+                            
+                            <div class="flex items-center text-blue-500 font-semibold text-sm cursor-pointer group/link">
+                                View Credentials
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="min-h-screen flex flex-col justify-center bg-gray-50 px-6 py-20">
+        <div class="max-w-4xl mx-auto w-full">
+            <h3 class="text-3xl font-bold text-gray-900 mb-12 border-l-4 border-blue-600 pl-4">Work Experience</h3>
+            
+            <div class="space-y-12">
+                {% for job in experiences %}
+                <div class="relative pl-8 border-l-2 border-gray-200 hover:border-blue-400 transition-colors duration-300">
+                    <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-[9px] top-1 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <span class="text-sm font-bold text-blue-600 uppercase tracking-widest">{{ job.duration }}</span>
+                        <h4 class="text-2xl font-bold text-gray-800 mt-1">{{ job.title }}</h4>
+                        <p class="text-lg text-gray-500 font-medium">{{ job.company }}</p>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            {{ job.description }}
+                        </p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-400 italic">Work history coming soon...</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="min-h-screen flex flex-col justify-center items-center bg-slate-900 text-white px-6">
+        <div class="max-w-5xl w-full text-center">
+            <h3 class="text-4xl font-bold mb-4">Areas of Expertise</h3>
+            <div class="w-24 h-1 bg-blue-500 mx-auto mb-12"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for skill in skills %}
+                    <div class="p-8 bg-slate-800 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="text-blue-400 mb-4">
+                            <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-semibold">{{ skill.name }}</h4>
+                        <p class="text-slate-400 mt-2 text-sm">{{ skill.category }}</p>
+                    </div>
+                {% empty %}
+                    <p class="col-span-3 text-slate-500">Skills are being updated...</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>

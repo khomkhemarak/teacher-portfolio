@@ -123,3 +123,7 @@ MEDIA_URL = '/media/'
 
 # The physical folder on your computer where files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'), 
+]

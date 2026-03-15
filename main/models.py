@@ -1,21 +1,8 @@
 from django.db import models
 
-class Lesson(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    pdf_file = models.FileField(upload_to='lessons/')
-    date_created = models.DateTimeField(auto_now_add=True)
+# Note: We removed the admin.site.register lines from here. 
+# They belong in admin.py!
 
-    def __str__(self):
-        return self.title
-    
-TITLE_CHOICES = [
-    ('English Educator', 'English Educator'),
-    ('ESL Specialist', 'ESL Specialist'),
-    ('Literature Mentor', 'Literature Mentor'),
-    ('Writing Coach', 'Writing Coach'),
-]
-    
 class Profile(models.Model):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=200, help_text="e.g. Senior English Educator")
@@ -26,3 +13,29 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Skill(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=100, default="Teaching")
+
+    def __str__(self):
+        return self.name
+
+class Experience(models.Model):
+    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    duration = models.CharField(max_length=50)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.title} at {self.company}"
+    
+class Education(models.Model):
+    degree = models.CharField(max_length=100)
+    school = models.CharField(max_length=100)
+    year = models.CharField(max_length=50)
+    profile_image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    image = models.ImageField(upload_to='education_logo/', blank=True, null=True)
+
+    def __str__(self):
+        return self.degree
