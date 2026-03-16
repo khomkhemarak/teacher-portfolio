@@ -71,52 +71,74 @@
 
     <section id="education" class="min-h-screen flex items-center bg-slate-50 py-24 px-6 overflow-hidden">
         <div class="max-w-6xl mx-auto w-full">
-            <div class="mb-16">
-                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">
-                    Education <span class="text-blue-600">Background</span>
-                </h2>
-                <div class="h-1 w-20 bg-blue-600 mt-4 rounded-full"></div>
+            <div class="mb-16 reveal-card flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+                        Education <span class="text-blue-600">Background</span>
+                    </h2>
+                    <div class="h-1 w-20 bg-blue-600 mt-4 rounded-full"></div>
+                </div>
+
+                <div class="relative flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm max-w-sm">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
+                        🐱
+                    </div>
+                    <div>
+                        <p id="meme-quote" class="text-sm italic text-slate-600 font-medium">"Loading teacher wisdom..."</p>
+                        <button onclick="generateMeme()" class="text-[10px] uppercase tracking-widest font-bold text-blue-600 hover:text-blue-800 transition-colors mt-1">
+                            ✨ Get New Wisdom
+                        </button>
+                    </div>
+                    <div class="absolute -bottom-2 left-6 w-4 h-4 bg-white border-b border-r border-slate-200 rotate-45"></div>
+                </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12">
                 {% for edu in education %}
                 <div class="group relative bg-white border border-slate-200 p-8 rounded-3xl transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 reveal-card">
                     
-                    <span class="absolute top-4 right-8 text-8xl font-black text-slate-50 group-hover:text-blue-50 transition-colors duration-500 select-none">0{{ forloop.counter }}</span>
+                    <span class="absolute top-4 right-8 text-8xl font-black text-slate-50 group-hover:text-blue-50/50 transition-colors duration-500 select-none pointer-events-none">0{{ forloop.counter }}</span>
 
                     <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start">
                         
                         <div class="relative shrink-0">
-                            <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 p-0.5 rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-lg">
-                                <div class="w-full h-full rounded-xl bg-white flex items-center justify-center overflow-hidden">
+                            <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 p-0.5 rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-lg overflow-hidden">
+                                <div class="relative w-full h-full rounded-xl bg-white flex items-center justify-center overflow-hidden">
+                                    
                                     {% if edu.image %}
-                                        <img src="{{ edu.image.url }}" alt="School Logo" class="w-full h-full object-contain p-2">
+                                        <img src="{{ edu.image.url }}" alt="School Logo" class="absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-500 group-hover:opacity-0 z-20">
                                     {% else %}
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                        </svg>
+                                        <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-0 z-20">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                            </svg>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if edu.gif %}
+                                        <img src="{{ edu.gif }}" alt="Animation" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
                                     {% endif %}
                                 </div>
                             </div>
                             
                             {% if edu.profile_image %}
-                            <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full border-4 border-white shadow-md overflow-hidden transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full border-4 border-white shadow-md overflow-hidden transition-transform duration-500 group-hover:scale-110 z-30">
                                 <img src="{{ edu.profile_image.url }}" alt="Personal Photo" class="w-full h-full object-cover">
                             </div>
                             {% endif %}
                         </div>
 
                         <div class="flex-1">
-                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg mb-4 uppercase tracking-widest">
+                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-md mb-3 uppercase tracking-widest">
                                 {{ edu.year }}
                             </span>
-                            <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">
                                 {{ edu.degree }}
                             </h3>
-                            <p class="text-lg text-slate-500 font-medium mb-4 italic">{{ edu.school }}</p>
+                            <p class="text-lg text-slate-500 font-medium mb-5 italic">{{ edu.school }}</p>
                             
-                            <div class="flex items-center text-blue-500 font-semibold text-sm cursor-pointer group/link">
+                            <div class="flex items-center text-blue-500 font-bold text-xs uppercase tracking-tighter cursor-pointer group/link">
                                 View Credentials
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover/link:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -125,33 +147,65 @@
                         </div>
                     </div>
 
-                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-3xl"></div>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </section>
 
-    <section id="work" class="min-h-screen flex flex-col justify-center bg-gray-50 px-6 py-20">
-        <div class="max-w-4xl mx-auto w-full">
-            <h3 class="text-3xl font-bold text-gray-900 mb-12 border-l-4 border-blue-600 pl-4">Work Experience</h3>
-            
-            <div class="space-y-12">
-                {% for job in experiences %}
-                <div class="relative pl-8 border-l-2 border-gray-200 hover:border-blue-400 transition-colors duration-300">
-                    <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-[9px] top-1 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
+    <section id="work" class="min-h-screen flex items-center bg-white py-24 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="mb-16 reveal-card">
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Professional <span class="text-blue-600">Journey</span>
+                </h2>
+                <div class="h-1 w-20 bg-blue-600 mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-10">
+                {% for exp in experiences %}
+                <div class="group relative bg-slate-50 border border-slate-200 p-8 md:p-10 rounded-3xl transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 reveal-card">
                     
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                        <span class="text-sm font-bold text-blue-600 uppercase tracking-widest">{{ job.duration }}</span>
-                        <h4 class="text-2xl font-bold text-gray-800 mt-1">{{ job.title }}</h4>
-                        <p class="text-lg text-gray-500 font-medium">{{ job.company }}</p>
-                        <p class="text-gray-600 mt-4 leading-relaxed">
-                            {{ job.description }}
-                        </p>
+                    <div class="relative z-10 flex flex-col md:flex-row gap-8">
+                        
+                        <div class="shrink-0 flex flex-col items-center md:items-start">
+                            <div class="w-20 h-20 rounded-2xl bg-white shadow-sm flex items-center justify-center border border-slate-100 group-hover:border-blue-500 transition-colors duration-500 overflow-hidden">
+                                <span class="text-3xl font-black text-blue-600 group-hover:scale-110 transition-transform duration-500">
+                                    {{ exp.company|slice:":1" }}
+                                </span>
+                            </div>
+                            <div class="mt-4 hidden md:block w-px h-full bg-slate-200 group-hover:bg-blue-200 transition-colors"></div>
+                        </div>
+
+                        <div class="flex-1">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                        {{ exp.title }}
+                                    </h3>
+                                    <p class="text-lg font-semibold text-blue-500">{{ exp.company }}</p>
+                                </div>
+                                <span class="mt-2 md:mt-0 px-4 py-1.5 bg-white border border-slate-200 text-slate-500 text-xs font-bold rounded-full shadow-sm">
+                                    {{ exp.duration }}
+                                </span>
+                            </div>
+
+                            <div class="text-slate-600 leading-relaxed text-base space-y-3">
+                                {{ exp.description|linebreaks }}
+                            </div>
+
+                            <div class="mt-8 flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-slate-200/50 text-slate-500 text-[10px] font-bold uppercase rounded-md tracking-tighter">Curriculum Design</span>
+                                <span class="px-3 py-1 bg-slate-200/50 text-slate-500 text-[10px] font-bold uppercase rounded-md tracking-tighter">Student Mentorship</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-8 right-10 text-slate-200/40 text-6xl font-black select-none pointer-events-none group-hover:text-blue-100/50 transition-colors duration-500">
+                        EX
                     </div>
                 </div>
-                {% empty %}
-                <p class="text-gray-400 italic">Work history coming soon...</p>
                 {% endfor %}
             </div>
         </div>

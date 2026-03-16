@@ -80,3 +80,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Your existing Navbar logic stays here...
 });
+
+// Cat Wisdom Logic
+const catQuotes = [
+    "I'm not a regular cat, I'm a cool teacher cat.",
+    "Your grammar is paws-itively amazing today.",
+    "Did you cite your sources? Fur real?",
+    "Books: The only thing better than catnip.",
+    "Stay paws-itive, graduation is coming!",
+    "Meow-ch better! Your essay improved 100%.",
+    "I read your draft. It's purr-fect.",
+    "Stop feline sad and start studying!",
+    "Linguistics is the cat's pajamas."
+];
+
+function generateMeme() {
+    const quoteElement = document.getElementById('meme-quote');
+    const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
+    
+    // Add a little fade effect when changing text
+    quoteElement.style.opacity = 0;
+    setTimeout(() => {
+        quoteElement.innerText = `"${randomQuote}"`;
+        quoteElement.style.opacity = 1;
+    }, 200);
+}
+
+// Run once when page loads so it's not empty
+document.addEventListener('DOMContentLoaded', () => {
+    generateMeme();
+});

@@ -36,6 +36,7 @@ class Education(models.Model):
     year = models.CharField(max_length=50)
     profile_image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     image = models.ImageField(upload_to='education_logo/', blank=True, null=True)
-
+    gif = models.URLField(max_length=500, blank=True, null=True, help_text="Paste a GIF URL here (e.g., Giphy link)")
+    
     def __str__(self):
         return self.degree

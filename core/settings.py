@@ -120,6 +120,7 @@ import os
 
 # The URL used to access media files in the browser
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # The physical folder on your computer where files will be stored
 
 # The physical folder on your computer where files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

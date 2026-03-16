@@ -10,4 +10,6 @@
     transform: translateY(0);
 }
 
-/* Add your navbar glass effects or other custom styles here */
+#meme-quote {
+    transition: opacity 0.3s ease-in-out;
+}
